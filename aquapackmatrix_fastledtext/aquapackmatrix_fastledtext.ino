@@ -62,7 +62,7 @@ void setup()
   
   gPal = CRGBPalette16( CRGB::Black, CRGB::Green, CRGB::Yellow, CRGB::Purple );
   ScrollingMsg.SetFont(MatriseFontData);
-  ScrollingMsg.Init(&leds, leds.Width(), ScrollingMsg.FontHeight() + 1, 0, 0);
+  ScrollingMsg.Init(&leds, leds.Width(), ScrollingMsg.FontHeight() + 2, 0, 0);
   switch(mode) {
       case 0:
       ScrollingMsg.SetText((unsigned char *)TxtDemo, sizeof(TxtDemo) - 1);
