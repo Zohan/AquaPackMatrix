@@ -37,7 +37,8 @@ const unsigned char TxtDemo[] = {
 const unsigned char TxtDemo0[] = { 
                                   EFFECT_HSV_CH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    PEE CLEAR"
                                   EFFECT_HSV_AV "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    SAFETY THIRD"
-                                  EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    WELCOME HOME <3"
+                                  EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    WELCOME HOME"
+                                  EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    FUCK YOUR BURN MV"
 };
 
 const unsigned char TxtDemo1[] = { EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    POLEGASM"
