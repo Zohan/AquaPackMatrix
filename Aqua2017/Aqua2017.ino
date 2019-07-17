@@ -6,7 +6,7 @@
 #include <EEPROM.h>
 // Change the next 6 defines to match your matrix type and size
 
-#define LED_PIN        A3
+#define LED_PIN        12
 #define COLOR_ORDER    GRB
 #define CHIPSET        WS2812B
 
@@ -40,7 +40,7 @@ uint16_t X;
 uint16_t Y;
 uint16_t Xn;
 uint16_t Yn;
-uint8_t index;
+uint8_t serendipity_index;
 
 cLEDMatrix<MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_TYPE> leds;
 
@@ -76,6 +76,9 @@ void setup()
   } else mode++;
   //mode = 2;
   EEPROM.write(0, mode);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED on (wat)
 
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
   if(mode < 3) FastLED.setBrightness(30);
@@ -186,9 +189,10 @@ void serendipitous () {
   X = Xn;
   Y = Yn;
 
-  index=(sin8(X)+cos8(Y))/2;                            // Guarantees maximum value of 255
+  //int temp = 0;
+  serendipity_index=(sin8(X)+cos8(Y))/2;                            // Guarantees maximum value of 255
 
-  CRGB newcolor = ColorFromPalette(currentPalette, index, 255, LINEARBLEND);
+  CRGB newcolor = ColorFromPalette(currentPalette, serendipity_index, 255, LINEARBLEND);
   
 //  nblend(leds[X%NUM_LEDS-1], newcolor, 224);          // Try and smooth it out a bit. Higher # means less smoothing.
   nblend(leds[0][map(X,0,65535,0,NUM_LEDS)], newcolor, 224); // Try and smooth it out a bit. Higher # means less smoothing.
