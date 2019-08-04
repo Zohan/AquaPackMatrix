@@ -6,7 +6,8 @@
 #include <EEPROM.h>
 // Change the next 6 defines to match your matrix type and size
 
-#define LED_PIN        2
+#define D8 15 // For the generic ESP
+#define LED_PIN        15
 #define COLOR_ORDER    GRB
 #define CHIPSET        WS2812B
 
@@ -32,7 +33,7 @@ CRGBPalette16 targetPalette;
 TBlendType    currentBlending;
 
 const unsigned char TxtDemo[] = { 
-                                  EFFECT_HSV_CV "\x10\xff\xff\x40\xff\xff" EFFECT_SCROLL_UP "    NICE BUTT"
+                                  EFFECT_HSV_CV "\x10\xff\xff\x40\xff\xff" EFFECT_SCROLL_UP "OZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZOZ"
                                   };
 const unsigned char TxtDemo0[] = { 
                                   EFFECT_HSV_CH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    PEE CLEAR"
@@ -41,8 +42,8 @@ const unsigned char TxtDemo0[] = {
                                   EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    FUCK YOUR BURN MV"
 };
 
-const unsigned char TxtDemo1[] = { EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    POLEGASM"
-                                   EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    7:30 PORTAL"
+const unsigned char TxtDemo1[] = { EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    CUPCAKE DEATH SQUAD"
+                                   EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" EFFECT_SCROLL_UP "    9 AND F"
 };
 
 const unsigned char TxtDemo2[] = { EFFECT_HSV_CV "\x10\xff\xff\x40\xff\xff" EFFECT_SCROLL_UP "    OZ"
@@ -53,11 +54,14 @@ const unsigned char TxtDemo3[] = { EFFECT_HSV_CV "\x10\xff\xff\x40\xff\xff" EFFE
                                   
 void setup()
 {
-  mode = EEPROM.read(0);
+  EEPROM.begin(8);
+  mode = byte(EEPROM.read(0));
   if(mode >= 4) {
     mode = 0;
   } else mode++;
   EEPROM.write(0, mode);
+  EEPROM.commit();
+  
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
   FastLED.setBrightness(15);
   FastLED.clear(true);
@@ -65,6 +69,9 @@ void setup()
   leds(2) = CRGB::Aqua;
   delay(250);
   FastLED.show();
+
+  pinMode(16, OUTPUT);
+  digitalWrite(16, LOW);   // turn the LED on (wat)
 
   currentPalette = RainbowColors_p;
   currentBlending = LINEARBLEND;
@@ -99,7 +106,7 @@ void setup()
 
 void loop()
 {
-  if (mode < 3 && ScrollingMsg.UpdateText() == -1)
+  if (mode <= 2 && ScrollingMsg.UpdateText() == -1)
     switch(mode) {
       case 0:
       ScrollingMsg.SetText((unsigned char *)TxtDemo, sizeof(TxtDemo) - 1);

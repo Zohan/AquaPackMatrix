@@ -62,23 +62,25 @@ const unsigned char TxtDemo0[] = {
                                   EFFECT_HSV_AV "\x00\xff\xff\xff\xff\xff" "    SAFETY THIRD"
                                   EFFECT_HSV_AH "\x00\xff\xff\xff\xff\xff" "    WELCOME HOME <3"
 };
-const unsigned char TxtDemo1[] = { EFFECT_RGB_AH "\x00\xff\x00\xff\xff\x00" "    FRENCH QUARTER"
-                                   EFFECT_RGB_AH "\xff\xff\x00\xff\x00\xff" "    4:30 & ESPLANADE"
+const unsigned char TxtDemo1[] = { EFFECT_RGB_AH "\x00\xff\x00\xff\xff\x00" "    CUPCAKE DEATH SQUAD"
+                                   EFFECT_RGB_AH "\xff\xff\x00\xff\x00\xff" "    9:00 & F"
 };
 
 CRGBPalette16 gPal;
                                   
 void setup()
-{
+{ 
+  EEPROM.begin(512);
   mode = EEPROM.read(0);
   if(mode >= 5) {
     mode = 0;
   } else mode++;
   //mode = 2;
   EEPROM.write(0, mode);
+  EEPROM.commit();
 
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED on (wat)
+  pinMode(16, OUTPUT);
+  digitalWrite(16, LOW);   // turn the LED on (wat)
 
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds[0], leds.Size()).setCorrection(TypicalSMD5050);
   if(mode < 3) FastLED.setBrightness(30);
